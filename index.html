@@ -1,0 +1,37 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitation System</title>
+</head>
+<body>
+  <h1>Invitation System</h1>
+  <label for="customer">Customer Name:</label>
+  <input type="text" id="customer" placeholder="Enter customer name"><br>
+  <label for="person">Person Name:</label>
+  <input type="text" id="person" placeholder="Enter person name"><br>
+  <button onclick="addPerson()">Add Person</button>
+  <p id="message"></p>
+
+  <script>
+    async function addPerson() {
+      const customer = document.getElementById('customer').value;
+      const person = document.getElementById('person').value;
+
+      const response = await fetch('/add-person', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ customer, person }),
+      });
+
+      const result = await response.json();
+
+      document.getElementById('message').innerText = result.message;
+    }
+  </script>
+</body>
+</html>
